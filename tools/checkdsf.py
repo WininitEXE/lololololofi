@@ -1,0 +1,10 @@
+import sys, struct
+d = open(sys.argv[1],'rb').read(200)
+print('magic', d[:4], 'dsd chunk size', struct.unpack_from('<Q', d, 4)[0])
+print('file size field', struct.unpack_from('<Q', d, 12)[0])
+print('fmt', d[28:32], 'fmt size', struct.unpack_from('<Q', d, 32)[0])
+print('version', struct.unpack_from('<I', d, 40)[0], 'format id', struct.unpack_from('<I', d, 44)[0])
+print('channel type', struct.unpack_from('<I', d, 48)[0], 'channels', struct.unpack_from('<I', d, 52)[0])
+print('rate', struct.unpack_from('<I', d, 56)[0], 'bits', struct.unpack_from('<I', d, 60)[0])
+print('sample count', struct.unpack_from('<Q', d, 64)[0], 'block size', struct.unpack_from('<I', d, 72)[0])
+print('data id', d[80:84], 'data size', struct.unpack_from('<Q', d, 84)[0])

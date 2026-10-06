@@ -1,0 +1,11 @@
+import time, sys, importlib.util
+t0 = time.time()
+spec = importlib.util.spec_from_file_location('w', sys.argv[1] + '/tools/webm2ogg.py')
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+print('imported', round(time.time() - t0, 2), flush=True)
+data = open(sys.argv[1] + '/samples/' + sys.argv[2], 'rb').read()
+print('read', len(data), round(time.time() - t0, 2), flush=True)
+info = m.parse(data)
+print('tracks:', info['tracks'], flush=True)
+print('blocks:', len(info['blocks']), round(time.time() - t0, 2), flush=True)
